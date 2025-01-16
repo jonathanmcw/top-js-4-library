@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- <dialog id="add-book-dialog" open> -->
+    <dialog id="add-book-dialog">
+        <button id="close-dialog">Close</button>
+        <h1>Add a new book</h1>
+        <form action="dialog" open>
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Enter book title" autofocus>
+            <label for="author">Author</label>
+            <input type="text" id="author" placeholder="Enter author name">
+            <label for="pages">Pages</label>
+            <input type="number" id="pages" placeholder="Enter number of pages">
+            <label for="read">Read?</label>
+            <input type="checkbox" id="read">
+            <button id="confirm-add-book" type="submit">Add</button>
+        </form>
+    </dialog>
+    <nav>
+        <h1>JW Library</h1>
+        <button id="add-book" type="submit">add Book</button>
+    </nav>
+    <section id="library-view" class="main">
+        <!-- <div class="book-item">
+            <h2 class="title">Title</h2>
+            <p class="author">Author name</p>
+            <p class="pages">157 pages</p>
+            <p class="read">Read</p>
+        </div> -->
+    </section>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const myLibrary = [];
+
+        function Book(title, author, pages, read) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
+            this.info = function () {
+                return `${this.title} ${this.author} ${this.pages} ${this.read}`
+            }
+        }
+
+        function addBookToLibrary(title, author, pages, read) {
+            const newBook = new Book(title, author, pages, read);
+            myLibrary.push(newBook);
+
+            const libraryView = document.getElementById("library-view");
+            const bookItem = document.createElement("div");
+            bookItem.setAttribute("class", "book-item");
+            bookItem.setAttribute("id", `book-${myLibrary.length}`);
+
+            const titleItem = document.createElement("h2");
+            titleItem.setAttribute("class", "title");
+            titleItem.textContent = title;
+
+            const authorItem = document.createElement("p");
+            authorItem.setAttribute("class", "author");
+            authorItem.textContent = author;
+
+            const pagesItem = document.createElement("p");
+            pagesItem.setAttribute("class", "pages");
+            pagesItem.textContent = pages;
+
+            const readItem = document.createElement("p");
+            readItem.setAttribute("class", "read");
+            readItem.textContent = read ? "Read" : "Not Read";
+
+            const deleteItem = document.createElement("button");
+            deleteItem.setAttribute("id", `delete-book-${myLibrary.length}`);
+            deleteItem.textContent = "Delete";
+
+            bookItem.appendChild(titleItem);
+            bookItem.appendChild(authorItem);
+            bookItem.appendChild(pagesItem);
+            bookItem.appendChild(readItem);
+            bookItem.appendChild(deleteItem);
+
+            libraryView.appendChild(bookItem);
+            console.log(myLibrary);
+
+            deleteItem.addEventListener("click", (e) => {
+                libraryView.removeChild(bookItem);
+            })
+        }
+
+        // Add a dummy book to the library
+        addBookToLibrary("Sample Book Title", "Sample Author", "100", true);
+
+        const addBookDialog = document.getElementById("add-book-dialog");
+        const closeDialog = document.getElementById("close-dialog");
+        const addBookBtn = document.getElementById("add-book");
+        const confirmAddBookBtn = document.getElementById("confirm-add-book");
+
+        addBookDialog.toggleAttribute("open");
+
+        addBookBtn.addEventListener("click", (e) => {
+            addBookDialog.toggleAttribute("open");
+        });
+
+        closeDialog.addEventListener("click", (e) => {
+            addBookDialog.toggleAttribute("open");
+        });
+
+        confirmAddBookBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const title = document.getElementById("title").value;
+            const author = document.getElementById("author").value;
+            const pages = document.getElementById("pages").value;
+            const read = document.getElementById("read").checked;
+
+            addBookToLibrary(title, author, pages, read);
+        });
+
+    });
+
+</script>
+</html>
