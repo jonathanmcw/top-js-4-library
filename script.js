@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title = "Sample Book Title " + myLibrary.length;
             author = "Sample Author";
             pages = "100";
-            read = true;
+            read = false;
         }
 
         addBookToLibrary(title, author, pages, read);
