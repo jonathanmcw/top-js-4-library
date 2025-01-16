@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function addBookToLibrary(title, author, pages, read) {
         const newBook = new Book(title, author, pages, read);
         myLibrary.push(newBook);
+        const bookIndex = myLibrary.indexOf(newBook) + 1;
 
         const libraryView = document.getElementById("library-view");
         const bookItem = document.createElement("div");
@@ -37,11 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
         readItem.textContent = read ? "Read" : "Not Read";
 
         const readButton = document.createElement("button");
-        readButton.setAttribute("id", `read-book-${myLibrary.length}`);
+        readButton.setAttribute("id", `read-book-${bookIndex}`);
         readButton.textContent = read ? "Mark as Unread" : "Mark as Read";
 
         const deleteButton = document.createElement("button");
-        deleteButton.setAttribute("id", `delete-book-${myLibrary.length}`);
+        deleteButton.setAttribute("id", `delete-book-${bookIndex}`);
         deleteButton.textContent = "Delete";
 
         bookItem.appendChild(titleItem);
@@ -55,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(myLibrary);
 
         deleteButton.addEventListener("click", () => {
-            const bookIndex = myLibrary.indexOf(newBook);
             if (bookIndex > -1) {
                 myLibrary.splice(bookIndex, 1);
             }
@@ -67,12 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
             newBook.read = !newBook.read;
             readItem.textContent = newBook.read ? "Read" : "Not Read";
             readButton.textContent = newBook.read ? "Mark as Unread" : "Mark as Read";
+            console.log(newBook);
         });
 
     }
-
-    // Add a dummy book to the library
-    addBookToLibrary("Sample Book Title", "Sample Author", "100", true);
 
     const addBookDialog = document.getElementById("add-book-dialog");
     const closeDialog = document.getElementById("close-dialog");
@@ -80,7 +78,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmAddBookBtn = document.getElementById("confirm-add-book");
 
     const titleInput = document.getElementById("title");
-    titleInput.value = "Book " + myLibrary.length;
+    const authorInput = document.getElementById("author");
+    const pagesInput = document.getElementById("pages");
+
+    // Testing only
+    const dummyTitle = "Sample Book Title " + parseInt(myLibrary.length + 1);
+    const dummyAuthor = "Sample Author";
+    const dummyPages = "100";
+
+    // Add a dummy book to the library
+    addBookToLibrary(dummyTitle, dummyAuthor, dummyPages, true);
+
+    // Testing only
+    titleInput.value = "Sample Book Title " + parseInt(myLibrary.length + 1);
+    authorInput.value = dummyAuthor;
+    pagesInput.value = dummyPages;
 
     addBookDialog.toggleAttribute("open");
 
@@ -100,7 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const read = document.getElementById("read").checked;
 
         addBookToLibrary(title, author, pages, read);
-        titleInput.value = "Book " + myLibrary.length;
+        
+        // For testing only
+        titleInput.value = "Sample Book Title " + parseInt(myLibrary.length + 1);
     });
 
 });
