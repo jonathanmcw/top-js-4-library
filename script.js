@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let pages = document.getElementById("pages").value;
         let read = document.getElementById("read").checked;
 
-        // Testing only
+        // For Testing only
         if ( title == "" && author == "" && pages == "" ) {
             title = "Sample Book Title " + myLibrary.length;
             author = "Sample Author";
