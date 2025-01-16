@@ -1,5 +1,6 @@
 html {
-    background: #ddd;;
+    background: #ddd;
+    font-family: sans-serif;
 }
 
 .main {
@@ -13,8 +14,55 @@ html {
 
 .book-item {
     flex: 1 1 1;
-    padding: 16px 16px 24px; 
+    padding: 0px 16px 24px; 
     background-color: white;
     border: solid 4px grey;
     width: 240px;
-  }
+}
+
+.book-item button {
+    margin-right: 8px;
+}
+
+.read.read-true {
+    color: darkgreen;
+}
+
+.read {
+    color: lightgrey;
+}
+
+dialog {
+    padding: 16px 16px 16px;
+}
+
+dialog button {
+    float: right;
+    margin-bottom: 16px;
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+}
+
+dialog form label {
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+dialog form input {
+    margin-bottom: 12px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+dialog form button {
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+dialog form input[type="checkbox"] {
+    align-self: flex-start;
+}

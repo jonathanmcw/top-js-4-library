@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const readItem = document.createElement("p");
         readItem.setAttribute("class", "read");
         readItem.textContent = read ? "Read" : "Not Read";
+        if (read) {
+            readItem.classList.add("read-true");
+        }
 
         const readButton = document.createElement("button");
         readButton.setAttribute("id", `read-book-${bookIndex}`);
@@ -67,6 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
             newBook.read = !newBook.read;
             readItem.textContent = newBook.read ? "Read" : "Not Read";
             readButton.textContent = newBook.read ? "Mark as Unread" : "Mark as Read";
+            if (newBook.read) {
+                readItem.classList.add("read-true");
+            } else {
+                readItem.classList.remove("read-true");
+            }
             console.log(newBook);
         });
 
